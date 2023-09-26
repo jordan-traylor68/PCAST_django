@@ -7,6 +7,13 @@
 <li>QUARTEX UID: {{doc.quartex_uid}}</li>
 <li>QUARTEX NAME: {{doc.quartex_name}}</li>
 <li>LANGUAGE: {{doc.lang}}</li>
+<li>Subjects
+	<ul>
+	{% for subj in doc.subjects.all %}
+	<li>{{subj.name}}</li>
+	{% endfor %}
+	</ul>
+</li>
 </ul>
 
 <p><a href="/admin/documents/document/{{doc.id}}/change/" target="_blank">EDIT THIS DOC</a></p>
