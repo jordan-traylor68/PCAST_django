@@ -13,6 +13,6 @@ class Document(models.Model):
         return self.title
 
 class LegacySubjects(models.Model):
-    name=models.CharField(max_length=500,null=False,blank=False)
+    name=models.CharField(max_length=500,null=False,blank=False,unique=True)
     def __str__(self):
         return self.name
