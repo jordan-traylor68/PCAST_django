@@ -16,3 +16,10 @@ class LegacySubjects(models.Model):
     name=models.CharField(max_length=500,null=False,blank=False,unique=True)
     def __str__(self):
         return self.name
+
+class Pages(models.Model):
+	quartex_image_iiif_hash=models.CharField(max_length=36,null=False,blank=False,unique=True)
+	document=models.ForeignKey(Document,null=False,blank=False,on_delete=models.CASCADE)
+	order=models.IntegerField(null=False,blank=False)
+	class Meta:
+		unique_together = ["order", "document"]
