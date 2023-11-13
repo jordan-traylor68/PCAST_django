@@ -189,5 +189,6 @@ class Person(models.Model):
 	)
 	class Meta:
 		verbose_name_plural="People"
+		ordering=['id']
 	def __str__(self):
 		return self.name
