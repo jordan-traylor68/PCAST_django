@@ -1,155 +1,194 @@
 from django.db import models
-from document.models import Document
+from documents.models import Document
 # Create your models here.
 
 class Ethnicity(models.Model):
-    controlled_name=models.CharField(
-        "Ethnicity",
-        max_length=255,
-        null=False,
-        blank=False,
-        unique=True,
-    )
+	controlled_name=models.CharField(
+		max_length=255,
+		null=False,
+		blank=False,
+		unique=True
+	)
+	class Meta:
+		verbose_name_plural="Ethnicities"
+	def __str__(self):
+		return self.controlled_name
+
 
 class Country(models.Model):
-    controlled_name=models.CharField(
-        max_length=255,
-        null=False,
-        blank=False,
-        unique=True
-    )
+	controlled_name=models.CharField(
+		max_length=255,
+		null=False,
+		blank=False,
+		unique=True
+	)
+	class Meta:
+		verbose_name_plural="Countries"
+	def __str__(self):
+		return self.controlled_name
 
 class Degree(models.Model):
-    controlled_name=models.CharField(
-        max_length=255,
-        null=False,
-        blank=False,
-        unique=True
-    )
+	controlled_name=models.CharField(
+		max_length=255,
+		null=False,
+		blank=False,
+		unique=True
+	)
+	def __str__(self):
+		return self.controlled_name
 
 class AreaOfStudy(models.Model):
-    controlled_name=models.CharField(
-        max_length=255,
-        null=False,
-        blank=False,
-        unique=True
-    )
+	controlled_name=models.CharField(
+		max_length=255,
+		null=False,
+		blank=False,
+		unique=True
+	)
+	def __str__(self):
+		return self.controlled_name
 
 class Institution(models.Model):
-    name=models.CharField(
-        max_length=255,
-        null=False,
-        blank=False,
-        unique=True
-    )
-
+	name=models.CharField(
+		max_length=255,
+		null=False,
+		blank=False,
+		unique=True
+	)
+	def __str__(self):
+		return self.name
+	
 class PersonDocumentRole(models.Model):
-    name=models.CharField(
-        null=False,
-        blank=False,
-        unique=True
-    ) 
+	name=models.CharField(
+		max_length=255,
+		null=False,
+		blank=False,
+		unique=True
+	)
+	def __str__(self):
+		return self.name	
+	class Meta:
+		ordering=['id']
+
 
 class PersonDocumentRelation(models.Model):
-    person=models.ForeignKey(
-        "Person",
-        null=False,
-        blank=False,
-    )
-    document=models.ForeignKey(
-        Document,
-        null=False,
-        blank=False,
-    )
-    role=models.ForeignKey(
-        PersonDocumentRole,
-        null=False,
-        blank=False
-    )
-    as_member_of=models.ForeignKey(
-        Institution,
-        null=True,
-        blank=True
-    )
-
+	person=models.ForeignKey(
+		"Person",
+		null=False,
+		blank=False,
+		on_delete=models.CASCADE
+	)
+	document=models.ForeignKey(
+		Document,
+		null=False,
+		blank=False,
+		on_delete=models.CASCADE
+	)
+	role=models.ForeignKey(
+		PersonDocumentRole,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+	as_member_of=models.ForeignKey(
+		Institution,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+	def __str__(self):
+		return self.person + self.document
+	
 class PersonPersonRelation(models.Model):
-    alice=models.ForeignKey(
-        "Person",
-        null=False,
-        blank=False,
-    )
-    bob=models.ForeignKey(
-        "Person",
-        null=False,
-        blank=False,
-    )
-    notes=models.TextField(
-        null=False,
-        blank=False
-    )
-    document=models.ForeignKey(
-        Document,
-        null=False,
-        blank=False,
-    )
+	alice=models.ForeignKey(
+		"Person",
+		null=False,
+		blank=False,
+		on_delete=models.CASCADE,
+		related_name="person_relation_source"
+	)
+	bob=models.ForeignKey(
+		"Person",
+		null=False,
+		blank=False,
+		on_delete=models.CASCADE,
+		related_name="person_relation_target"
+	)
+	notes=models.TextField(
+		null=True,
+		blank=True
+	)
+	document=models.ForeignKey(
+		Document,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+	def __str__(self):
+		return self.alice + self.bob
+
+
+
+
+
 
 class Person(models.Model):
-    controlled_name=models.CharField(
-        "Name of person, canonical, unformatted",
-        max_length=255,
-        null=False,
-        blank=False
-    )
-    country_of_origin=models.ForeignKey(
-        Country,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL
-    )
-
-    birth_year=models.IntegerField(
-        "Year of birth",
-        null=True,
-        blank=True
-    )
-    death_date=models.IntegerField(
-        "Year of death",
-        null=True,
-        blank=True
-    )
-    ethnicity=models.ForeignKey(
-        Ethnicity,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL
-    )
-    
-    highest_degree=models.ForeignKey(
-        Degree,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL
-    )
-
-    area_of_study=models.ForeignKey(
-        AreaOfStudy,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL
-
-    )
-
-    area_of_exptertise=models.CharField(
-        "Name of person, canonical, unformatted",
-        max_length=255,
-        null=False,
-        blank=False
-    )
-
-    degree_granting_institution=models.ForeignKey(
-        Institution,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL
-
-    )
+	
+	name=models.CharField(
+		"Name of person, canonical, unformatted",
+		max_length=255,
+		null=False,
+		blank=False
+	)
+	country_of_origin=models.ForeignKey(
+		Country,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+	birth_year=models.IntegerField(
+		"Year of birth",
+		null=True,
+		blank=True
+	)
+	death_year=models.IntegerField(
+		"Year of death",
+		null=True,
+		blank=True
+	)
+	ethnicity=models.ForeignKey(
+		Ethnicity,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+	
+	highest_degree=models.ForeignKey(
+		Degree,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+	
+	area_of_study=models.ForeignKey(
+		AreaOfStudy,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+	area_of_expertise=models.CharField(
+		max_length=255,
+		null=True,
+		blank=True
+	)
+	
+	degree_granting_institution=models.ForeignKey(
+		Institution,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+	class Meta:
+		verbose_name_plural="People"
+		ordering=['id']
+	def __str__(self):
+		return self.name
