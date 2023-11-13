@@ -1,9 +1,20 @@
 from django.contrib import admin
 from documents.models import *
-# Register your models here.
+from namedEntities.models import PersonDocumentRelation
+import nested_admin
 
-class DocumentAdmin(admin.ModelAdmin):
+class PersonDocumentRelationInline(nested_admin.NestedStackedInline):
+	model=PersonDocumentRelation
+	classes = ['collapse']
+	autocomplete_fields=['person']
+	fields=['person','document','role','as_member_of']
+	extra=0
+
+class DocumentAdmin(nested_admin.NestedModelAdmin):
     readonly_fields=['quartex_uid','quartex_name','asset_id']
+    inlines=(
+    	PersonDocumentRelationInline,
+    )
     list_display=['title','lang','asset_id']
     search_fields=['title','asset_id']
     autocomplete_fields=['subjects']
