@@ -95,8 +95,6 @@ class PersonDocumentRelation(models.Model):
 		blank=True,
 		on_delete=models.SET_NULL
 	)
-	def __str__(self):
-		return self.person + self.document
 	
 class PersonPersonRelation(models.Model):
 	alice=models.ForeignKey(
