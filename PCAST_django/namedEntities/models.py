@@ -44,10 +44,23 @@ class AreaOfStudy(models.Model):
 		blank=False,
 		unique=True
 	)
+	class Meta:
+		verbose_name_plural="Areas of study"
 	def __str__(self):
 		return self.controlled_name
 
 class Institution(models.Model):
+	name=models.CharField(
+		max_length=255,
+		null=False,
+		blank=False,
+		unique=True
+	)
+	def __str__(self):
+		return self.name
+
+# Wikipedia Grade: New field that should only be used for PCAST & OSTP members
+class WikipediaGrade(models.Model):
 	name=models.CharField(
 		max_length=255,
 		null=False,
@@ -181,6 +194,14 @@ class Person(models.Model):
 	
 	degree_granting_institution=models.ForeignKey(
 		Institution,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+
+	wikipedia_grade=models.ForeignKey(
+		WikipediaGrade,
+		help_text="Please use for PCAST & OSTP members only.",
 		null=True,
 		blank=True,
 		on_delete=models.SET_NULL
