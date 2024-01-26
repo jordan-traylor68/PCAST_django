@@ -17,12 +17,17 @@ class DocumentAdmin(nested_admin.NestedModelAdmin):
     )
     list_display=['title','lang','asset_id']
     search_fields=['title','asset_id']
-    autocomplete_fields=['subjects']
+    autocomplete_fields=['subjects','newsubjects']
 
 class LegacySubjectsAdmin(admin.ModelAdmin):
     search_fields=['name']
     list_display=['name']
     readonly_display=['name']
 
+class NewSubjectsAdmin(admin.ModelAdmin):
+    search_fields=['name']
+    list_display=['name']
+
 admin.site.register(Document,DocumentAdmin)
 admin.site.register(LegacySubjects,LegacySubjectsAdmin)
+admin.site.register(NewSubjects,NewSubjectsAdmin)

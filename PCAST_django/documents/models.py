@@ -9,6 +9,7 @@ class Document(models.Model):
 	quartex_name=models.CharField(max_length=100,null=False,blank=False,unique=True)
 	lang=models.CharField(max_length=3,null=True,blank=True,unique=False)
 	subjects=models.ManyToManyField('LegacySubjects')
+	newsubjects=models.ManyToManyField('NewSubjects')
 	def __str__(self):
 		return self.title
 
@@ -25,3 +26,10 @@ class Pages(models.Model):
 	order=models.IntegerField(null=False,blank=False)
 	class Meta:
 		unique_together = ["order", "document"]
+
+class NewSubjects(models.Model):
+	name=models.CharField(max_length=500,null=False,blank=False,unique=True)
+	def __str__(self):
+		return self.name
+	class Meta:
+		verbose_name_plural="Subjects"
