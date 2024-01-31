@@ -15,7 +15,7 @@ class DocumentAdmin(nested_admin.NestedModelAdmin):
     inlines=(
     	PersonDocumentRelationInline,
     )
-    list_display=['title','lang','asset_id']
+    list_display=['title','quartex_name','asset_id']
     search_fields=['title','asset_id']
     autocomplete_fields=['subjects','newsubjects']
 

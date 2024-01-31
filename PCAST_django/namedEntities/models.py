@@ -49,7 +49,8 @@ class AreaOfStudy(models.Model):
 	def __str__(self):
 		return self.controlled_name
 
-class Institution(models.Model):
+# Sector: New field to categorize institutions by sector (public, private, etc.)
+class Sector(models.Model):
 	name=models.CharField(
 		max_length=255,
 		null=False,
@@ -58,6 +59,25 @@ class Institution(models.Model):
 	)
 	def __str__(self):
 		return self.name
+
+class Institution(models.Model):
+	name=models.CharField(
+		max_length=255,
+		null=False,
+		blank=False,
+		unique=True
+	)
+	sector=models.ForeignKey(
+		Sector,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+
+	def __str__(self):
+		return self.name
+
+
 
 # Wikipedia Grade: New field that should only be used for PCAST & OSTP members
 class WikipediaGrade(models.Model):
@@ -81,7 +101,6 @@ class PersonDocumentRole(models.Model):
 		return self.name	
 	class Meta:
 		ordering=['id']
-
 
 class PersonDocumentRelation(models.Model):
 	person=models.ForeignKey(

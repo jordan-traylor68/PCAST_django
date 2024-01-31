@@ -9,7 +9,8 @@ class PersonAdmin(admin.ModelAdmin):
 	list_display=['name','birth_year','death_year','wikipedia_grade']
 	search_fields=['name']
 
-
+class InstitutionAdmin(admin.ModelAdmin):
+	list_display=['name','sector']
 
 admin.site.register(Person,PersonAdmin)
 admin.site.register(Institution)
@@ -19,3 +20,4 @@ admin.site.register(Ethnicity)
 admin.site.register(AreaOfStudy)
 admin.site.register(PersonDocumentRole)
 admin.site.register(WikipediaGrade)
+admin.site.register(Sector)
