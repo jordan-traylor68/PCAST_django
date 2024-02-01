@@ -2,6 +2,15 @@ from django.db import models
 from documents.models import Document
 # Create your models here.
 
+# STATUS_CHOICES = {
+#     "fg": "Federal government"
+# 	"sg": "State government"
+# 	"lg": "Local government"
+# 	"ps": "Private sector"
+# 	"ns": "Nonprofit sector"
+# 	"ac": "Academia"
+# }
+
 class Ethnicity(models.Model):
 	controlled_name=models.CharField(
 		max_length=255,
@@ -73,7 +82,6 @@ class Institution(models.Model):
 		blank=True,
 		on_delete=models.SET_NULL
 	)
-
 	def __str__(self):
 		return self.name
 
