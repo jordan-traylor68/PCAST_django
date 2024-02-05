@@ -54,7 +54,7 @@ class AreaOfStudy(models.Model):
 		unique=True
 	)
 	class Meta:
-		verbose_name_plural="Areas of study"
+		verbose_name_plural="Areas of Study"
 	def __str__(self):
 		return self.controlled_name
 
@@ -95,6 +95,8 @@ class WikipediaGrade(models.Model):
 		blank=False,
 		unique=True
 	)
+	class Meta:
+		verbose_name_plural="Wikipedia Grades"
 	def __str__(self):
 		return self.name
 	
@@ -105,9 +107,11 @@ class PersonDocumentRole(models.Model):
 		blank=False,
 		unique=True
 	)
+	
 	def __str__(self):
 		return self.name	
 	class Meta:
+		verbose_name_plural="Person Document Roles"
 		ordering=['id']
 
 class PersonDocumentRelation(models.Model):
