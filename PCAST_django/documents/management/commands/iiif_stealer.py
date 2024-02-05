@@ -6,7 +6,7 @@ import requests
 import json
 
 class Command(BaseCommand):
-    help = 'walks the iiif manifest link attached to each domucment and records the page images tha twe get from from it'
+    help = 'walks the iiif manifest link attached to each document and records the page images that we get from from it'
     def handle(self, *args, **options):
         #pull all our documents
         docs = Document.objects.all()
