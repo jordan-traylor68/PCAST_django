@@ -15,9 +15,9 @@ class DocumentAdmin(nested_admin.NestedModelAdmin):
     inlines=(
     	PersonDocumentRelationInline,
     )
-    list_display=['title','quartex_name','asset_id']
+    list_display=['title','quartex_name','asset_id','administration']
     search_fields=['title','asset_id']
-    autocomplete_fields=['subjects','newsubjects','documentgenre']
+    autocomplete_fields=['subjects','newsubjects','administration','documentgenre']
 
 class LegacySubjectsAdmin(admin.ModelAdmin):
     search_fields=['name']
@@ -28,11 +28,6 @@ class NewSubjectsAdmin(admin.ModelAdmin):
     search_fields=['name']
     list_display=['name']
 
-class DocumentGenreAdmin(admin.ModelAdmin):
-    search_fields=['name']
-    list_display=['name']
-
 admin.site.register(Document,DocumentAdmin)
 admin.site.register(LegacySubjects,LegacySubjectsAdmin)
 admin.site.register(NewSubjects,NewSubjectsAdmin)
-admin.site.register(DocumentGenre,DocumentGenreAdmin)
