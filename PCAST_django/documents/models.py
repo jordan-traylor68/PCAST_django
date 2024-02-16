@@ -10,6 +10,7 @@ class Document(models.Model):
 	lang=models.CharField(max_length=3,null=True,blank=True,unique=False)
 	subjects=models.ManyToManyField('LegacySubjects')
 	newsubjects=models.ManyToManyField('NewSubjects')
+	administration=models.ForeignKey('Administration',models.SET_NULL,blank=True, null=True)
 	def __str__(self):
 		return self.title
 
@@ -33,3 +34,16 @@ class NewSubjects(models.Model):
 		return self.name
 	class Meta:
 		verbose_name_plural="Subjects"
+
+class Administration(models.Model):
+	controlled_name=models.CharField(
+		max_length=100,
+		null=True,
+		blank=True,
+		unique=True
+	)
+	class Meta:
+		verbose_name_plural="Administrations"
+	def __str__(self):
+		return self.controlled_name
+	
