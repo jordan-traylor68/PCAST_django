@@ -28,6 +28,16 @@ class NewSubjectsAdmin(admin.ModelAdmin):
     search_fields=['name']
     list_display=['name']
 
+class AdministrationAdmin(admin.ModelAdmin):
+    search_fields=['controlled_name']
+    list_display=['controlled_name']
+
+class DocumentGenreAdmin(admin.ModelAdmin):
+    search_fields=['name']
+    list_display=['name']
+
 admin.site.register(Document,DocumentAdmin)
 admin.site.register(LegacySubjects,LegacySubjectsAdmin)
 admin.site.register(NewSubjects,NewSubjectsAdmin)
+admin.site.register(Administration,AdministrationAdmin)
+admin.site.register(DocumentGenre,DocumentGenreAdmin)
