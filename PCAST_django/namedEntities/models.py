@@ -105,6 +105,20 @@ class PersonDocumentRole(models.Model):
 		verbose_name_plural="Person Document Roles"
 		ordering=['id']
 
+# Institution Document Role: New field to make roles that institutions can have for documents
+class InstitutionDocumentRole(models.Model):
+	name=models.CharField(
+		max_length=255,
+		null=False,
+		blank=False,
+		unique=True
+	)
+	def __str__(self):
+		return self.name
+	class Meta:
+		verbose_name_plural="Institution Document Roles"
+		ordering=['id']
+
 class PersonDocumentRelation(models.Model):
 	person=models.ForeignKey(
 		"Person",
@@ -130,7 +144,35 @@ class PersonDocumentRelation(models.Model):
 		blank=True,
 		on_delete=models.SET_NULL
 	)
-	
+
+# Institution document relation: setting this up to allow connections between institutions and documents
+class InstitutionDocumentRelation(models.Model):
+	institution=models.ForeignKey(
+		"Institution",
+		null=False,
+		blank=False,
+		on_delete=models.CASCADE
+	)
+	document=models.ForeignKey(
+		Document,
+		null=False,
+		blank=False,
+		on_delete=models.CASCADE
+	)
+	role=models.ForeignKey(
+		PersonDocumentRole,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL
+	)
+	part_of=models.ForeignKey(
+		Sector,
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL,
+		help_text="Please use only when adding a <b>new</b> institution above."
+	)
+
 class PersonPersonRelation(models.Model):
 	alice=models.ForeignKey(
 		"Person",

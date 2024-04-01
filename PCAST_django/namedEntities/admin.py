@@ -53,6 +53,7 @@ class PersonAdmin(admin.ModelAdmin):
 class InstitutionAdmin(admin.ModelAdmin):
 	list_display=['name','sector']
 	actions = [set_sector_fg,set_sector_ac,set_sector_lg,set_sector_ns,set_sector_ps,set_sector_sg]
+	search_fields=['name']
 
 admin.site.register(Person,PersonAdmin)
 admin.site.register(Institution,InstitutionAdmin)
@@ -61,5 +62,6 @@ admin.site.register(Country)
 admin.site.register(Ethnicity)
 admin.site.register(AreaOfStudy)
 admin.site.register(PersonDocumentRole)
+admin.site.register(InstitutionDocumentRole)
 admin.site.register(WikipediaGrade)
 admin.site.register(Sector)
