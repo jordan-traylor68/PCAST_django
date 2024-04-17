@@ -5,7 +5,9 @@ from django.core.paginator import Paginator
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.list import ListView
+from django.views.generic import FormView
 from documents.models import *
+from .forms import *
 
 # Create your views here.
 
@@ -37,3 +39,12 @@ def SingleDoc(request,doc_id=1):
 	
 # 		print(doc)
 	return render(request, "single_doc.html", {'doc':doc})
+
+class HomeView(FormView):
+    form_class = UploadForm
+    template_name = 'index.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        upload = self.request.FILES['file']
+        return super().form_valid(form)
