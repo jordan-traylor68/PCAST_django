@@ -1,7 +1,7 @@
 import csv
 import re
 from django.core.management.base import BaseCommand, CommandError
-from documents import models
+from documents.models import *
 import os
 
 class Command(BaseCommand):

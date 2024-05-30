@@ -1,0 +1,7 @@
+<div style="text-align: center;">
+    <form enctype="multipart/form-data" id="ocrForm" method="post"> <!-- Do not forget to add: enctype="multipart/form-data" -->
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-success">OCRzed</button>
+    </form>
+</div>

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "documents",
     "namedEntities",
-    'nested_admin'
+    'nested_admin',
 ]
 
 MIDDLEWARE = [

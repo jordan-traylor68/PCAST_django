@@ -1,7 +1,7 @@
 from django.contrib import admin
 from documents.models import *
 from namedEntities.models import PersonDocumentRelation,InstitutionDocumentRelation
-from .csv import export_csv
+# from .csv import export_csv
 import nested_admin
 
 # def set_administration_ghwb(ModelAdmin, request, queryset):
@@ -50,15 +50,15 @@ import nested_admin
 # set_administration_djt.short_description = "Set Administration to Donald Trump Administration"
 # set_administration_jrb.short_description = "Set Administration to Joe Biden Administration"
 
-def export_selected(modeladmin, request, queryset):
-    # Call the export_csv function
-    return export_csv(request)
-export_selected.short_description = 'Export Selected'
+# def export_selected(modeladmin, request, queryset):
+#     # Call the export_csv function
+#     return export_csv(request)
+# export_selected.short_description = 'Export Selected'
 
 class PersonDocumentRelationInline(nested_admin.NestedStackedInline):
 	model=PersonDocumentRelation
 	classes = ['collapse']
-	autocomplete_fields=['person']
+	autocomplete_fields=['person','as_member_of']
 	fields=['person','document','role','as_member_of']
 	extra=0
 
@@ -76,10 +76,10 @@ class DocumentAdmin(nested_admin.NestedModelAdmin):
         InstitutionDocumentRelationInline
     )
     list_display=['title','quartex_name','asset_id','administration']
-    search_fields=['title','asset_id','controlledsubjects']
-    autocomplete_fields=['subjects','administration','documentgenre']
+    search_fields=['title','asset_id']
+    autocomplete_fields=['administration','documentgenre','controlledsubjects','subjects']
     # actions = [set_administration_bho,set_administration_djt,set_administration_ghwb,set_administration_gwb,set_administration_jrb,set_administration_wjc]
-    actions = [export_selected]
+    # actions = [export_selected]
 
 class LegacySubjectsAdmin(admin.ModelAdmin):
     search_fields=['name']
@@ -89,6 +89,7 @@ class LegacySubjectsAdmin(admin.ModelAdmin):
 class ControlledSubjectsAdmin(admin.ModelAdmin):
     search_fields=['name']
     list_display=['name']
+    readonly_display=['name']
 
 class AdministrationAdmin(admin.ModelAdmin):
     search_fields=['name']

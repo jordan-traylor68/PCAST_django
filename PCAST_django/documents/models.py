@@ -9,7 +9,7 @@ class Document(models.Model):
 	quartex_name=models.CharField(max_length=100,null=False,blank=False,unique=True)
 	lang=models.CharField(max_length=3,null=True,blank=True,unique=False)
 	subjects=models.ManyToManyField('LegacySubjects')
-	controlledsubjects=models.ForeignKey('ControlledSubjects',null=True,blank=True,on_delete=models.SET_NULL)
+	controlledsubjects=models.ManyToManyField('ControlledSubjects',blank=True)
 	documentgenre=models.ForeignKey('DocumentGenre',null=True,blank=True,on_delete=models.SET_NULL)
 	administration=models.ForeignKey('Administration',models.SET_NULL,blank=True, null=True)
 	quartexyn=models.BooleanField('QuartexYN', default=False)
@@ -42,7 +42,7 @@ class ControlledSubjects(models.Model):
 	def __str__(self):
 		return self.name
 	class Meta:
-		verbose_name_plural="Subjects"
+		verbose_name_plural="New Subjects"
 
 # Administration: simple field to tag documents with administration
 class Administration(models.Model):
