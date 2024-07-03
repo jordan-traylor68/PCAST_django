@@ -1,8 +1,13 @@
 import csv
 import re
 from django.core.management.base import BaseCommand, CommandError
-from documents import models
+# from documents import *
+# from PCAST_django.documents.models import Document, LegacySubjects
+from documents.models import Document, LegacySubjects
 import os
+import django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PCAST_django.settings')
+django.setup()
 
 class Command(BaseCommand):
 	help = 'imports legacy csv from jordan -- purpose-built'
@@ -41,14 +46,21 @@ class Command(BaseCommand):
 		'Accessibility Feature',
 		'Accessibility Summary',
 		'Legacy Subjects']
+		print("Files in basepath:", os.listdir(basepath))
 
+
+# if not csvs:
+#     	print("No CSV files found.")
+# else:
 		csvs=[i for i in os.listdir(basepath) if i=='pcast-etc-metadata-report.csv']
 		print("csvs to read in",csvs)
 		for this_csv in csvs:
 			fpath=os.path.join(basepath,this_csv)
 			print("full path to this csv",fpath)
-			with open(fpath,'r',encoding='iso-8859-1') as csvfile:
-				reader=csv.DictReader(csvfile,delimiter='\t')
+			with open(fpath,'r',encoding='utf-8-sig') as csvfile:
+				reader=csv.DictReader(csvfile,delimiter=',')
+				headers=reader.fieldnames
+				print("CSV Headers:", headers)
 				for row in reader:
 					title=row['Title']
 					asset_id=row['Asset ID']
@@ -64,7 +76,7 @@ class Command(BaseCommand):
 						lang=lang
 					)
 					
-					legacy_subjects=row['Legacy Subjects'].split('|')
+					legacy_subjects=row['Legacy Subjects'].split(',')
 					
 					for legacy_subject in legacy_subjects:
 						#get or create returns a tuple
@@ -75,6 +87,7 @@ class Command(BaseCommand):
 						)
 						row_doc.subjects.add(ls_obj)
 					row_doc.save()
+pass
 						
 						
 					

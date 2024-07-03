@@ -2,7 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+sys.path.append(os.path.join(os.path.dirname(__file__), 'PCAST_django'))
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PCAST_django.settings')
 
 def main():
     """Run administrative tasks."""
