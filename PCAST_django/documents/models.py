@@ -7,6 +7,7 @@ class Document(models.Model):
 	asset_id=models.IntegerField(null=False,blank=False,unique=True)
 	quartex_uid=models.CharField(max_length=36,null=False,blank=False,unique=True)
 	quartex_name=models.CharField(max_length=100,null=False,blank=False,unique=True)
+	source=models.CharField(max_length=1000,null=True,blank=True,unique=False)
 	lang=models.CharField(max_length=3,null=True,blank=True,unique=False)
 	subjects=models.ManyToManyField('LegacySubjects')
 	controlledsubjects=models.ManyToManyField('ControlledSubjects',blank=True)
@@ -64,3 +65,9 @@ class DocumentGenre(models.Model):
 		return self.name
 	class Meta:
 		verbose_name_plural="Document Genres"
+
+# Source: new field to record source information from CSV
+class Source(models.Model):
+	name=models.CharField(max_length=1000,null=True,blank=False,unique=True)
+	def __str__(self):
+		return self.name

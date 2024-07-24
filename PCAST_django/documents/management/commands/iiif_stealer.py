@@ -1,9 +1,12 @@
 import re
 from django.core.management.base import BaseCommand, CommandError
-from documents.models import *
+from documents.models import Document
 import os
 import requests
 import json
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PCAST_django.settings')
+django.setup()
+
 
 class Command(BaseCommand):
     help = 'walks the iiif manifest link attached to each document and records the page images that we get from from it'

@@ -99,6 +99,10 @@ class DocumentGenreAdmin(admin.ModelAdmin):
     search_fields=['name']
     list_display=['name']
 
+class SourceAdmin(admin.ModelAdmin):
+    list_display=['name']
+    readonly_display=['name']
+
 
 admin.site.register(Document,DocumentAdmin)
 admin.site.register(LegacySubjects,LegacySubjectsAdmin)
