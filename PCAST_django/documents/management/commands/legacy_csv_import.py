@@ -58,7 +58,7 @@ class Command(BaseCommand):
 			fpath=os.path.join(basepath,this_csv)
 			print("full path to this csv",fpath)
 			with open(fpath,'r',encoding='utf-8-sig') as csvfile:
-				reader=csv.DictReader(csvfile,delimiter=',')
+				reader=csv.DictReader(csvfile,delimiter='\t')
 				headers=reader.fieldnames
 				print("CSV Headers:", headers)
 				for row in reader:
@@ -69,11 +69,13 @@ class Command(BaseCommand):
 					lang=row['Language']
 					
 					row_doc,row_doc_isnew=Document.objects.get_or_create(
-						title=title,
-						asset_id=asset_id,
-						quartex_uid=quartex_uid,
-						quartex_name=quartex_name,
-						lang=lang
+						quartex_uid=row['Quartex UniqueIdentifier'],
+						defaults={
+						'title': row['Title'],
+						'asset_id': row['Asset ID'],
+						'lang': row['Language'],
+						'quartex_name':row['Quartex Name']
+						}
 					)
 					
 					legacy_subjects=row['Legacy Subjects'].split(',')
