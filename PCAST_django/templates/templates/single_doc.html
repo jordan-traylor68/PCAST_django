@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+
+<ul>
+<li>TITLE: {{doc.title}}</li>
+<li>ASSET ID: {{doc.asset_id}}</li>
+<li>QUARTEX UID: {{doc.quartex_uid}}</li>
+<li>QUARTEX NAME: {{doc.quartex_name}}</li>
+<li>LANGUAGE: {{doc.lang}}</li>
+<li>Subjects
+	<ul>
+	{% for subj in doc.subjects.all %}
+	<li>{{subj.name}}</li>
+	{% endfor %}
+	</ul>
+</li>
+</ul>
+
+<p><a href="/admin/documents/document/{{doc.id}}/change/" target="_blank">EDIT THIS DOC</a></p>
+
+<p><a href="https://iiif.quartexcollections.com/rice/iiif/{{doc.quartex_uid}}/manifest" target="_blank">VIEW THIS DOC'S IIIF MANIFEST ON QUARTEX</a></p>
+
+{% endblock %}

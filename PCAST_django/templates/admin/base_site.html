@@ -1,0 +1,11 @@
+<!-- templates/admin/base_site.html -->
+{% extends "admin/base_site.html" %}
+
+{% block branding %}
+    {{ block.super }}  <!-- Keep the existing branding intact -->
+    
+    <!-- Add your custom help link in the header -->
+    <a href="{% url 'admin_help' %}" style="margin-left: 20px;">Help</a>
+{% endblock %}
+
+

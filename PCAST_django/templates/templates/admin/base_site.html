@@ -1,0 +1,15 @@
+<!-- templates/admin/base_site.html -->
+{% extends "admin/base_site.html" %}
+
+{% block sidebar %}
+    {{ block.super }}  <!-- Keep the existing admin sidebar intact -->
+    
+    <!-- Add your custom help link in the sidebar -->
+    <div class="sidebar-item">
+        <h3>Help</h3>
+        <ul class="sidebar-item">
+            <li><a href="{% url 'admin_help' %}">Project Documentation</a></li>
+        </ul>
+    </div>
+{% endblock %}
+

@@ -11,6 +11,8 @@ from .forms import *
 
 # Create your views here.
 
+def help_page(request):
+    return render(request, 'templates/admin/help.html')
 
 def Gallery(request,pagenumber=1):
 	

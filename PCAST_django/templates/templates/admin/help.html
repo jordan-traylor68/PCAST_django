@@ -1,0 +1,43 @@
+{% block content %}
+    <h1 style="font-family:verdana">Documentation</h1>
+    <p style="font-family:verdana">Welcome to the PCAST django administration interface. This is the backend of our PCAST django database, where administrators (you) can browse and add to our database.</p>
+    <p style="font-family:verdana">The purpose of this project is to establish a relational database based on the corpus of the White House Scientists Archive, a digital archive documenting the history of the President's Council of Advisors on Science and Technology (PCAST) and the Office of Science and Technology Policy (OSTP). The objective is to create a network where researchers can treat people and topics from documents as links to other documents, which can give them a better understanding of the materials.</p>
+    <p style="font-family:verdana"></p>
+    <p style="font-family:verdana">The purpose of this documentation is to relate a simple overview of django and to provide administrators with definitions of the fields that they are recording data for.</p>
+    <h2 style="font-family:verdana">django</h2>
+    <p style="font-family:verdana">To simplify it, django is basically a highly customizable user interface that allows users to set their own fields and tables for a single sqlite3 file. In the django directory, this is the "db.sqlite3" file. So, the normal operation is to: </p>
+    <ul style="font-family:verdana"><li>Add fields to the database with makemigrations,</li>
+    <li>Apply those changes with migrate,</li>
+    <li>Start the local server with manage.py,</li>
+<li>Write into the database using the interface,</li>
+<li>Back up the database regularly.</li></ul>
+<p style="font-family:verdana">A key difference with our set up is that we do not use local servers to write to "the" database. If we did that, everyone would have their own database that they locally write to. Rather, we have a remote server that is hosted on Rice's ORION cluster that we ssh into and write to a single database. This may seem needlessly complicated, but it does enable two key qualities of the project:</p>
+<ul style="font-family:verdana"><li>Centralizes the database so that we do not risk overwrites</li>
+    <li>Allows local instances to act as testbeds for code tweaking and experiments.</li></ul>
+    <p style="font-family:verdana">So, code changes are made locally and then pushed to github. The remote database is never touched by github - it's only updated as we enter changes via the admin interface on the remote server.</p>
+    <h2 style="font-family:verdana">Writing in Data</h2>
+    <p style="font-family:verdana">The documents are imported in batch via Quartex metadata exports. This brings in some metadata automatically, like title and source (actually still working on that one...). To establish connections between objects and people, we use a number of foreign keys to link those items to each other in the table(s). Currently, we have two major document-relation keys. Those are <b>person-document relation</b> and <b>institution-document relation</b>. The former grabs a person from the <b>person</b> table and assigns a <b>role_id</b> to them, which expresses their relation to that document. The latter does the same with institutions.</p>
+    <p style="font-family:verdana">Here are some metadata semantics:</p>
+    <ul style="font-family:verdana"><li><b>Title:</b> Derived from source. Should not be altered in django.</li>
+    <li><b>Source:</b> the physical "home" or location that the item was obtained from, as clsoe as we can get it. Should usually be of a "Box\folder" construction for materials from Woodson Research Center or "FOIA\OAID#" for government sources. Jordan is working to include this information in the import script.</li>
+<li><b>Lang:</b> Simple ISO-639 language abbreviation. Will almost always be "eng."</li>
+<li><b>Subjects</b> this is actually the area for "Legacy Subjects" - a table which records the LC subject headings given to the items that once lived on DSpace. These shouldn't be touched.</li>
+<li><b>Controlledsubjects: </b>A field for controlled subject terms. Search for a term by typing it in or add a new one with the green plus mark. <b>Please use LCSH.</b></li>
+<li><b>Documentgenre:</b> Getty AAT controlled document type. Select one from the drop-down.</li>
+<li><b>Administration:</b> the presidential administration that the item was created during. Select one from the drop-down.</li>
+<li><b>QuartexYN</b> Simple boolean to record if the item is on Quartex or not. Not actually used, so don't worry about it.</li></ul>
+<h3 style="font-family:verdana">The relations fields</h3>
+<p style="font-family:verdana">The nested menus for adding relational information allow you to add however many relations you want with the green plus mark. When adding a relation, you need only select the person you are identifying as being related, select their role, and select what institution they belong to. Here are some more details:</p>
+<ul style="font-family:verdana"><li><b>Person:</b> When adding a new person, you will use a pop-up where you can put in biographical data. These are by no means required (we pretty much just need the name), but are there for crazy people like Jordan who like to be as complete as possible. In any case, any name entered should be <b>controlled</b> if any such record exists for the person. This database uses <b>searchFAST</b> for name records. Refer to that first for names; if it doesn't have it, just use Last name, First name, Middle.</li>
+<li><b>Role:</b> How the person features in the document - usually authors and recipients, but also mentions is an important relation. Almost any appearance of a name counts as a mention - exceptions include letters that list all members of an organization that don't actually have anything to do with the letter. The idea with tracking mentions is to represent who is being discussed where, or where someone's name appears through the database.</li>
+<li><b>As member of:</b> This links the person with an institution. The idea here is that we can track the impact or presence of institutions in the database by tracking its members. Usually every person in the database is acting on behalf of some organization, and so are acting "as members of" Harvard, or the U.S. Army, etc. This lets us see who was talking with who and, ideally, who the government liaised with most when governing science and technology matters.</li>
+</ul>
+
+<p style="font-family:verdana">The institution relation field is very similar, except that instead of being "members of" something, we here want to track what the institutions are a "part of." We have 6 <b>sectors</b> by which we can classify these institutions:</p>
+<ul style="font-family:verdana"><li><b>Federal government:</b> The sector comprised of government bodies operating at the federal level. </li>
+    <li><b>State government:</b> The sector comprised of government bodies operating at a state level. </li>
+    <li><b>Local government:</b> The sector comprised of government bodies operating at a local (cities, counties) level.</li>
+    <li><b>Private sector:</b> The sector comprised of companies, corporations, firms, and other bodies that are for-profit and privately-owned. Sometimes referred to in general as "industry." </li>
+    <li><b>Nonprofit secotr:</b> The sector comprised of foundations, charities, some healthcare organizations, and others that do not seek or make profit.</li>
+    <li><b>Academia:</b> Institutions of higher education. </li></ul>
+{% endblock %}

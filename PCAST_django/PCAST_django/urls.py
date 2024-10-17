@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from documents.views import help_page
 
 urlpatterns = [
+    path('admin/help/', help_page, name='admin_help'),
     path('admin/', admin.site.urls),
     path('docs/',include('documents.urls'))
 ]

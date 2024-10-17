@@ -74,7 +74,8 @@ class Command(BaseCommand):
 						'title': row['Title'],
 						'asset_id': row['Asset ID'],
 						'lang': row['Language'],
-						'quartex_name':row['Quartex Name']
+						'quartex_name':row['Quartex Name'],
+						'source': row['Source']
 						}
 					)
 					
