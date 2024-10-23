@@ -39,12 +39,26 @@ def set_sector_ac(ModelAdmin, request, queryset):
 		Institution.sector = sector
 		Institution.save()
 
+def set_sector_mi(ModelAdmin, request, queryset):
+	sector = Sector.objects.get(name='Military')
+	for Institution in queryset:
+		Institution.sector = sector
+		Institution.save()
+
+def set_sector_for(ModelAdmin, request, queryset):
+	sector = Sector.objects.get(name='Foreign government')
+	for Institution in queryset:
+		Institution.sector = sector
+		Institution.save()		
+
 set_sector_fg.short_description = "Set sector to Federal government"
 set_sector_sg.short_description = "Set sector to State government"
 set_sector_lg.short_description = "Set sector to Local government"
 set_sector_ps.short_description = "Set sector to Private sector"
 set_sector_ns.short_description = "Set sector to Nonprofit sector"
 set_sector_ac.short_description = "Set sector to Academia"
+set_sector_mi.short_description = "Set sector to Military"
+set_sector_for.short_description = "Set sector to Foreign government"
 
 class PersonAdmin(admin.ModelAdmin):
 	list_display=['name','birth_year','death_year','wikipedia_grade']
@@ -52,7 +66,7 @@ class PersonAdmin(admin.ModelAdmin):
 
 class InstitutionAdmin(admin.ModelAdmin):
 	list_display=['name','sector']
-	actions = [set_sector_fg,set_sector_ac,set_sector_lg,set_sector_ns,set_sector_ps,set_sector_sg]
+	actions = [set_sector_fg,set_sector_ac,set_sector_lg,set_sector_ns,set_sector_ps,set_sector_sg,set_sector_mi,set_sector_for]
 	search_fields=['name']
 
 admin.site.register(Person,PersonAdmin)

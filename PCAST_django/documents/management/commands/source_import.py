@@ -26,14 +26,14 @@ class Command(BaseCommand):
 
         print("Files in basepath:", os.listdir(basepath))
 
-        csvs = [i for i in os.listdir(basepath) if i == 'pcast-etc-metadata-report.csv']
+        csvs = [i for i in os.listdir(basepath) if i == 'source-report.csv']
         print("csvs to read in", csvs)
 
         for this_csv in csvs:
             fpath = os.path.join(basepath, this_csv)
             print("full path to this csv", fpath)
-            with open(fpath, 'r', encoding='utf-8-sig') as csvfile:
-                reader = csv.DictReader(csvfile, delimiter=',')
+            with open(fpath, 'r', encoding='iso-8859-1') as csvfile:
+                reader = csv.DictReader(csvfile, delimiter='\t')
                 headers = reader.fieldnames
                 print("CSV Headers:", headers)
                 for row in reader:
