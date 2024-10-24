@@ -1,0 +1,7 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_field_sets %}
+    {{ document_count_text|safe }}  <!-- Render the document count message -->
+    <p style="font-family:Segoe UI">Click "show" below to see which ones:</p>
+    {{ block.super }}  <!-- Continue with the normal rendering of inlines -->
+{% endblock %}

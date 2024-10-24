@@ -1,5 +1,6 @@
 from django.db import models
 from documents.models import Document
+import nested_admin
 # Create your models here.
 
 class Ethnicity(models.Model):
@@ -201,11 +202,6 @@ class PersonPersonRelation(models.Model):
 	def __str__(self):
 		return self.alice + self.bob
 
-
-
-
-
-
 class Person(models.Model):
 	
 	name=models.CharField(
@@ -270,6 +266,7 @@ class Person(models.Model):
 		blank=True,
 		on_delete=models.SET_NULL
 	)
+
 	class Meta:
 		verbose_name_plural="People"
 		ordering=['id']
