@@ -3,6 +3,7 @@ from documents.models import *
 from namedEntities.models import PersonDocumentRelation,InstitutionDocumentRelation
 # from .csv import export_csv
 import nested_admin
+from django.db.models import Count
 
 # def set_administration_ghwb(ModelAdmin, request, queryset):
 #     administration = Administration.objects.get(name='George H.W. Bush Administration (1989-1993)')
@@ -75,11 +76,22 @@ class DocumentAdmin(nested_admin.NestedModelAdmin):
     	PersonDocumentRelationInline,
         InstitutionDocumentRelationInline
     )
-    list_display=['title','quartex_name','asset_id','administration']
+    list_display=['title','quartex_name','asset_id','administration','person_count']
     search_fields=['title','asset_id']
     autocomplete_fields=['administration','documentgenre','controlledsubjects','subjects']
     # actions = [set_administration_bho,set_administration_djt,set_administration_ghwb,set_administration_gwb,set_administration_jrb,set_administration_wjc]
     # actions = [export_selected]
+
+    def person_count(self, obj):
+         return obj.person_count
+    
+    person_count.admin_order_field = 'person_count'
+
+    def get_queryset(self, request):
+         queryset = super().get_queryset(request)
+         queryset = queryset.annotate(person_count=Count('persondocumentrelation'))
+         return queryset
+    person_count.short_description = '# of Related Persons:'
 
 class LegacySubjectsAdmin(admin.ModelAdmin):
     search_fields=['name']

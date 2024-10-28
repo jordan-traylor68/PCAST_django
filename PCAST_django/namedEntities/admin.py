@@ -3,6 +3,7 @@ from namedEntities.models import *
 from documents.models import *
 import nested_admin
 from django.utils.html import format_html
+from django.db.models import Count
 
 # Register your models here.
 
@@ -72,9 +73,24 @@ class PersonAdmin(nested_admin.NestedModelAdmin):
 	inlines=(
 		PersonDocumentInline,
 	)
-	list_display=['name','birth_year','death_year','wikipedia_grade']
+	list_display=['name','birth_year','death_year','wikipedia_grade', 'document_count']
 	search_fields=['name']
 	change_form_template = "admin/namedEntities/person/change_form.html"
+
+
+	def document_count(self, obj):
+		return obj.document_count
+
+
+	document_count.admin_order_field = 'document_count'
+
+
+	def get_queryset(self, request):
+		queryset = super().get_queryset(request)
+		queryset = queryset.annotate(document_count=Count('persondocumentrelation'))
+		return queryset
+
+	document_count.short_description = 'Appears in this Many Documents:'
 
 	def change_view(self, request, object_id, form_url='', extra_context=None):
 		# Fetch the person object
@@ -93,7 +109,8 @@ class PersonAdmin(nested_admin.NestedModelAdmin):
 		return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
 
-
+class SectorAdmin(admin.ModelAdmin):
+	list_display=['name','constituent_institutions']
 
 
 class InstitutionAdmin(admin.ModelAdmin):
