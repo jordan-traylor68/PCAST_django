@@ -21,5 +21,8 @@ from documents.views import help_page
 urlpatterns = [
     path('admin/help/', help_page, name='admin_help'),
     path('admin/', admin.site.urls),
-    path('docs/',include('documents.urls'))
+    path('docs/',include('documents.urls')),
+
+    path('', include('namedEntities.urls')),
+
 ]
