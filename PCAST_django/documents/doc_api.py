@@ -13,7 +13,7 @@ from .serializer import Docs_Serializer
 class DocDetailAPIView(APIView):
     def get(self, request, pk):
         document = get_object_or_404(Document, pk=pk)
-        serializer = Docs_Serializer(Document)
+        serializer = Docs_Serializer(document)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
