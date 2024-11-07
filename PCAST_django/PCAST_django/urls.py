@@ -22,5 +22,7 @@ urlpatterns = [
     path('admin/help/', help_page, name='admin_help'),
     path('admin/', admin.site.urls),
     path('docs/',include('documents.urls')),
-    path('',include('documents.urls'))
+
+    path('', include('namedEntities.urls')),
+
 ]
