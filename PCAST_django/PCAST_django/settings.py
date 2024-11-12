@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "documents",
     "namedEntities",
     'nested_admin',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [

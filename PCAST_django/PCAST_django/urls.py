@@ -24,5 +24,5 @@ urlpatterns = [
     path('docs/',include('documents.urls')),
 
     path('', include('namedEntities.urls')),
-
+    path('', include('documents.urls')),
 ]
