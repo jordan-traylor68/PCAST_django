@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'PCAST_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pg_db',
+        'NAME': 'pg_db4',
         'USER': 'jt68',
         'PASSWORD': 'green',
         'HOST': 'localhost',
