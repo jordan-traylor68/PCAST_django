@@ -25,7 +25,7 @@ class Document(models.Model):
 # onquartex = models.BooleanField(default=False)
 
 class LegacySubjects(models.Model):
-	name=models.CharField(max_length=500,null=False,blank=True,unique=True)
+	name=models.TextField(null=False,blank=True,unique=True)
 	def __str__(self):
 		return self.name
 	class Meta:
