@@ -10,8 +10,14 @@ Date: 2024/11/4
 
 from rest_framework import serializers
 from .models import Person
+from .models import Institution
 
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
+        fields = '__all__'
+
+class InstitutionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Institution
         fields = '__all__'
