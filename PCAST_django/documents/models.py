@@ -13,7 +13,7 @@ class Document(models.Model):
 	controlledsubjects=models.ManyToManyField('ControlledSubjects',blank=True)
 	documentgenre=models.ForeignKey('DocumentGenre',null=True,blank=True,on_delete=models.SET_NULL)
 	administration=models.ForeignKey('Administration',models.SET_NULL,blank=True, null=True)
-	quartexyn=models.BooleanField('QuartexYN', default=False)
+	# quartexyn=models.BooleanField('QuartexYN', default=False)
 	def __str__(self):
 		return self.title
 
@@ -25,7 +25,7 @@ class Document(models.Model):
 # onquartex = models.BooleanField(default=False)
 
 class LegacySubjects(models.Model):
-	name=models.CharField(max_length=500,null=False,blank=True,unique=True)
+	name=models.TextField(null=False,blank=True,unique=True)
 	def __str__(self):
 		return self.name
 	class Meta:
