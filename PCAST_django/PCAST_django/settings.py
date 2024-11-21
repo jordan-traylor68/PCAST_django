@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'PCAST_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pcastdb',
+        'NAME': 'pg_db7',
         'USER': 'jt68',
-        'PASSWORD': 'mote',
-        'HOST': '10.134.196.160',
+        'PASSWORD': 'green',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
