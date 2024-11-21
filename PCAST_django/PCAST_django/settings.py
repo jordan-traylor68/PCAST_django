@@ -10,7 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+from dotenv import load_dotenv
 from pathlib import Path
+
+load_dotenv()
+db_password=os.getenv('DB_PASSWORD')
+db_name=os.getenv('DB_NAME')
+db_user=os.getenv('DB_USER')
+db_host=os.getenv('DB_HOST')
+db_port=os.getenv('DB_PORT')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,11 +89,11 @@ WSGI_APPLICATION = 'PCAST_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pg_db7',
-        'USER': 'jt68',
-        'PASSWORD': 'green',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': db_name,
+        'USER': db_user,
+        'PASSWORD': db_password,
+        'HOST': db_host,
+        'PORT': db_port,
     }
 }
 
