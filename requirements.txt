@@ -10,5 +10,8 @@ six==1.16.0
 sqlparse==0.4.4
 tzdata==2023.3
 urllib3==2.0.6
+psycopg2-binary==2.9.10
+django-dump-load-utf8==0.0.4
+python-dotenv==1.0.1
 
 djangorestframework == 3.15.2
