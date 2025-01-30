@@ -2,6 +2,7 @@
 static/
 csv.py
 2024-05-31.sqlite3
+base.html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
