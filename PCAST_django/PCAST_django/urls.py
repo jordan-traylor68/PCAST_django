@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from documents.views import help_page
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/help/', help_page, name='admin_help'),
@@ -26,3 +27,5 @@ urlpatterns = [
     path('', include('namedEntities.urls')),
     path('', include('documents.urls')),
 ]
+
+urlpatterns += staticfiles_urlpatterns()

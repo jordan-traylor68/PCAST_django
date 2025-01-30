@@ -13,6 +13,7 @@ class Document(models.Model):
 	controlledsubjects=models.ManyToManyField('ControlledSubjects',blank=True)
 	documentgenre=models.ForeignKey('DocumentGenre',null=True,blank=True,on_delete=models.SET_NULL)
 	administration=models.ForeignKey('Administration',models.SET_NULL,blank=True, null=True)
+	description=models.CharField(max_length=None,null=True,blank=True)
 	# quartexyn=models.BooleanField('QuartexYN', default=False)
 	def __str__(self):
 		return self.title

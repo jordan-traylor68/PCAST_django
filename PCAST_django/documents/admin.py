@@ -115,6 +115,10 @@ class SourceAdmin(admin.ModelAdmin):
     list_display=['name']
     readonly_display=['name']
 
+class DescriptionAdmin(admin.ModelAdmin):
+     list_display=['name']
+     readonly_display=['name']
+
 
 admin.site.register(Document,DocumentAdmin)
 admin.site.register(LegacySubjects,LegacySubjectsAdmin)
